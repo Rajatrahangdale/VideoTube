@@ -8,11 +8,12 @@ const storage = multer.diskStorage({
     cb(null, file.originalname);
   },
 });
-
-export const upload = multer({
+const Upload = multer({
   storage: storage,
   //   limits: {
   //     fileSize: 1024 * 1024 * 5, // 5MB
   //   },
 });
 // .single("video");
+
+export default Upload;
