@@ -33,10 +33,10 @@ const userSchema = new Schema(
     avatar: {
       type: String, // cloudinarry url
       required: true,
-      //   default: "default_avatar.jpg",
     },
     coverImage: {
       type: String, // cloudinarry url
+      //   default: "default_coverImage.url",
     },
     watchHistory: {
       type: Schema.Types.ObjectId,
@@ -57,7 +57,7 @@ const userSchema = new Schema(
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
-  this.password = bcrypt.hash(this.password, 10);
+  this.password = await bcrypt.hash(this.password, 10);
   next();
 });
 
@@ -86,4 +86,4 @@ userSchema.methods.genrateRefreshToken = function () {
     { expiresIn: REFRESH_TOKEN_EXPIRY }
   );
 };
-export const user = mongoose.model("user", userSchema);
+export const User = mongoose.model("user", userSchema);
